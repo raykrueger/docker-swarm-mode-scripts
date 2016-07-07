@@ -3,6 +3,10 @@
 These scripts use docker-machine from the [Docker Toolbox](1) to create a
 docker swarm-mode cluster and clean it up when you're done.
 
+## prerequisites
+
+You will need docker-toolbox 1.12 for this to work.
+
 ## create-swarm
 
 Clone this repository and execute `./create-swarm`. This will build 6
