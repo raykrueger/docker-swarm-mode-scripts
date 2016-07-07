@@ -11,7 +11,7 @@ managers and an additional three joined as workers.
 
 ## destroy-swarm
 
-When you're done playing around execute './destroy-swarm' to destroy all the
+When you're done playing around execute `./destroy-swarm` to destroy all the
 hosts that were created.
 
 [1]: https://www.docker.com/products/docker-toolbox
