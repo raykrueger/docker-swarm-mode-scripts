@@ -5,7 +5,7 @@ docker swarm-mode cluster and clean it up when you're done.
 
 ## prerequisites
 
-You will need docker-toolbox 1.12 for this to work.
+You will need docker-toolbox the latest 1.12 beta release for this to work.
 
 ## create-swarm
 
@@ -18,4 +18,4 @@ managers and an additional three joined as workers.
 When you're done playing around execute `./destroy-swarm` to destroy all the
 hosts that were created.
 
-[1]: https://www.docker.com/products/docker-toolbox
+[1]: https://github.com/docker/toolbox/releases
