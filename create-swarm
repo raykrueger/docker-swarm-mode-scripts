@@ -5,21 +5,21 @@ docker-machine create -d virtualbox manager-1
 manager_ip=$(docker-machine ip manager-1)
 
 echo "--- Swarm Init"
-docker-machine ssh manager-1 docker swarm init --listen-addr ${manager_ip} --auto-accept manager --auto-accept worker
+docker-machine ssh manager-1 docker swarm init --listen-addr ${manager_ip} --auto-accept manager --auto-accept worker --secret totalsecret
 
 
 for n in {2..3} ; do
 	printf "\n---Create manager-${n}\n"
 	docker-machine create -d virtualbox manager-${n}
 	echo "--- Swarm Manager Join"
-	docker-machine ssh manager-${n} docker swarm join --listen-addr $(docker-machine ip manager-${n}) --manager ${manager_ip}:2377
+	docker-machine ssh manager-${n} docker swarm join --listen-addr $(docker-machine ip manager-${n}) --manager ${manager_ip}:2377 --secret totalsecret
 done
 
 for n in {1..3} ; do
 	printf "\n---Create worker-${n}\n"
 	docker-machine create -d virtualbox worker-${n}
 	echo "--- Swarm Worker Join"
-	docker-machine ssh worker-${n} docker swarm join ${manager_ip}:2377
+	docker-machine ssh worker-${n} docker swarm join ${manager_ip}:2377 --secret totalsecret
 done
 
 printf "\n\n------------------------------------\n"
