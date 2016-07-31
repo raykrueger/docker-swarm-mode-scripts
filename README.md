@@ -5,7 +5,7 @@ docker swarm-mode cluster and clean it up when you're done.
 
 ## prerequisites
 
-You will need docker-toolbox the latest 1.12 beta release for this to work.
+You will need docker-toolbox the latest 1.12 (or better) release for this to work.
 
 ## create-swarm
 
