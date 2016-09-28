@@ -1,6 +1,6 @@
 # docker-swarm-mode-scripts
 
-These scripts use docker-machine from the [Docker Toolbox](1) to create a
+These scripts use docker-machine from the [Docker Toolbox][1] to create a
 docker swarm-mode cluster and clean it up when you're done.
 
 ## prerequisites
@@ -18,4 +18,4 @@ managers and an additional three joined as workers.
 When you're done playing around execute `./destroy-swarm` to destroy all the
 hosts that were created.
 
-[1]: https://github.com/docker/toolbox/releases
+[1]: https://www.docker.com/products/docker-toolbox
