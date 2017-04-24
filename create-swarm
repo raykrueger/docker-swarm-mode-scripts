@@ -34,7 +34,7 @@ printf "\n---Launching Visualizer\n"
 docker-machine ssh manager-1 docker run -it -d -p 8080:8080 -e HOST=${manager_ip} -e PORT=8080 -v /var/run/docker.sock:/var/run/docker.sock manomarks/visualizer
 
 printf "\n\n------------------------------------\n"
-echo "To connect to your cluster..."
-echo 'eval $(docker-machine env manager-1)'
 echo "To visualize your cluster..."
 echo "Open a browser to http://${manager_ip}:8080/"
+echo "To connect to your cluster..."
+echo 'eval $(docker-machine env manager-1)'
