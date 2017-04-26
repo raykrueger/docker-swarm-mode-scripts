@@ -11,9 +11,6 @@ docker-machine ssh manager-1 docker node update --label-add node.hostname=manage
 printf "\n---Get Tokens\n"
 manager_token=$(docker-machine ssh manager-1 docker swarm join-token -q manager)
 worker_token=$(docker-machine ssh manager-1 docker swarm join-token -q worker)
-echo ${manager_token}
-echo ${worker_token}
-
 
 for n in {2..3} ; do
 	name=manager-${n}
