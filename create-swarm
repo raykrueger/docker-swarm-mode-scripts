@@ -15,19 +15,21 @@ echo ${worker_token}
 
 
 for n in {2..3} ; do
-	printf "\n---Create manager-${n}\n"
-	docker-machine create -d virtualbox manager-${n}
-	ip=$(docker-machine ip manager-${n})
+	name=manager-${n}
+	printf "\n---Create ${name}\n"
+	docker-machine create -d virtualbox ${name}
+	ip=$(docker-machine ip ${name})
 	echo "--- Swarm Manager Join"
-	docker-machine ssh manager-${n} docker swarm join --listen-addr ${ip} --advertise-addr ${ip} --token ${manager_token} ${manager_ip}:2377
+	docker-machine ssh ${name} docker swarm join --listen-addr ${ip} --advertise-addr ${ip} --token ${manager_token} ${manager_ip}:2377
 done
 
 for n in {1..3} ; do
-	printf "\n---Create worker-${n}\n"
-	docker-machine create -d virtualbox worker-${n}
-	ip=$(docker-machine ip worker-${n})
+	name=worker-${n}
+	printf "\n---Create ${name}\n"
+	docker-machine create -d virtualbox ${name}
+	ip=$(docker-machine ip ${name})
 	echo "--- Swarm Worker Join"
-	docker-machine ssh worker-${n} docker swarm join --listen-addr ${ip} --advertise-addr ${ip} --token ${worker_token} ${manager_ip}:2377
+	docker-machine ssh ${name} docker swarm join --listen-addr ${ip} --advertise-addr ${ip} --token ${worker_token} ${manager_ip}:2377
 done
 
 printf "\n---Launching Visualizer\n"
