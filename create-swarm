@@ -29,7 +29,7 @@ for n in {1..3} ; do
 	ip=$(docker-machine ip ${name})
 	echo "--- Swarm Worker Join"
 	docker-machine ssh ${name} docker swarm join --listen-addr ${ip} --advertise-addr ${ip} --token ${worker_token} ${manager_ip}:2377
-	docker-machine ssh ${name} docker node update --label-add node.hostname=${name} ${name}
+	docker-machine ssh manager-1 docker node update --label-add node.hostname=${name} ${name}
 done
 
 printf "\n---Launching Visualizer\n"
