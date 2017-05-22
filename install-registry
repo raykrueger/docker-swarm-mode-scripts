@@ -1,0 +1,26 @@
+#!/usr/bin/env sh
+
+manager_ip=$(docker-machine ip manager-1)
+
+if [ ! -d certs ]; then
+	mkdir -p certs
+	openssl req -newkey rsa:4096 -nodes -sha256 -keyout certs/registry.key -x509 -days 365 -out certs/registry.crt -subj "/C=US/ST=Illinois/L=Chicago/O=create-swarm/OU=script/CN=registry.swarm"
+fi
+
+for h in manager-{1..3} worker-{1..3}; do
+	docker-machine ssh $h sudo mkdir -p /etc/docker/certs.d/registry.swarm:5000/
+	docker-machine scp certs/registry.crt $h:registry.crt
+	docker-machine ssh $h sudo mv registry.crt /etc/docker/certs.d/registry.swarm:5000/ca.crt
+	docker-machine ssh $h "sudo sh -c \"echo ${manager_ip} registry.swarm >> /etc/hosts\""
+done
+
+docker-machine ssh manager-1 sudo mkdir -p /etc/registry
+docker-machine scp -r ./certs manager-1:.
+docker-machine ssh manager-1 sudo mv certs /etc/registry/.
+docker-machine ssh manager-1 docker run -d -p 5000:5000 -v registry:/var/lib/registry -v /etc/registry/certs:/certs -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/registry.crt -e REGISTRY_HTTP_TLS_KEY=/certs/registry.key registry
+
+echo For your local machine to talk to the embedded registry you will need to add the keys.
+echo On a mac, just run the following...
+echo \$    sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain certs/registry.crt
+echo \$    "sudo sh -c echo ${manager_ip} registry.swarm >> /etc/hosts"
+echo Then restart docker for mac for the change to take effect.
