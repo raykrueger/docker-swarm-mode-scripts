@@ -27,7 +27,7 @@ after execution.
 
 Another useful tool is the docker registry, accessible by the cluster and your
 local machine. Keys and certs are generated which are then distributed to the
-cluster nodes. The registry is isntalled on manager-1 and accessible from your
+cluster nodes. The registry is installed on manager-1 and accessible from your
 host machine. This is very useful for building images locally and pushing them
 into the cluster registry, and then deploying services from those images.
 
