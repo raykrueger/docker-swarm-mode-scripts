@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+printf "\n---Installing Visualizer\n"
+docker-machine ssh manager-1 docker run -d -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock dockersamples/visualizer
+
+printf "\n\n------------------------------------\n"
+echo "To visualize your cluster..."
+echo "Open a browser to http://$(docker-machine ip manager-1):8080/"
